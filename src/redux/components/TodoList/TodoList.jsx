@@ -1,8 +1,9 @@
 import React from "react";
-import { StyledDiv, StyledTodoListHeader, StyledTodoListBox } from "./styles";
-import Todo from "../Todo";
-import { getTodos } from "../../../api/todos";
 import { useQuery } from "react-query";
+import { getTodos } from "../../../api/todos";
+import { QUERY_KEYS } from "../../../query/keys.constant";
+import Todo from "../Todo";
+import { StyledDiv, StyledTodoListBox, StyledTodoListHeader } from "./styles";
 
 /**
  * 컴포넌트 개요 : 메인 > TODOLIST. 할 일의 목록을 가지고 있는 컴포넌트
@@ -11,7 +12,7 @@ import { useQuery } from "react-query";
  * @returns TodoList 컴포넌트
  */
 function TodoList({ isActive }) {
-  const { isLoading, isError, data } = useQuery("todos", getTodos);
+  const { isLoading, isError, data } = useQuery(QUERY_KEYS.TODOS, getTodos);
 
   if (isLoading) {
     return <p>로딩중입니다....!</p>;
