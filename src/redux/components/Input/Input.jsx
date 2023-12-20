@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
+import { addTodo } from "../../../api/todos";
 import { QUERY_KEYS } from "../../../query/keys.constant";
 import { useAddMutation } from "../../../query/useTodoQuery";
 import HeightBox from "../common/HeightBox";
@@ -14,7 +15,12 @@ import { FlexDiv, StyledButton, StyledDiv } from "./styles";
  * @returns Input 컴포넌트
  */
 function Input() {
-  const mutation = useMutation();
+  const mutation = useMutation(addTodo, {
+    onSuccess: (data) => {
+      console.log("data", data);
+      queryClient.invalidateQueries(QUERY_KEYS.TODOS);
+    },
+  });
   const queryClient = useQueryClient();
   const { mutate: addMutate } = useAddMutation();
 
@@ -68,12 +74,7 @@ function Input() {
 
     // todo를 추가하는 reducer 호출
     // 인자 : payload
-    addMutate.mutate(newTodo, {
-      onSuccess: (data) => {
-        console.log("data", data);
-        queryClient.invalidateQueries(QUERY_KEYS.TODOS);
-      },
-    });
+    // mutation.mutate(newTodo);
 
     // state 두 개를 초기화
     setTitle("");
