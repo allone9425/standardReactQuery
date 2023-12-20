@@ -74,7 +74,7 @@ function Input() {
 
     // todo를 추가하는 reducer 호출
     // 인자 : payload
-    // mutation.mutate(newTodo);
+    mutation.mutate(newTodo);
 
     // state 두 개를 초기화
     setTitle("");
